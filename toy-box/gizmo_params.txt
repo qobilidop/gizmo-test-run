@@ -15,7 +15,7 @@ NumFilesPerSnapshot         1
 NumFilesWrittenInParallel   1
 
 %---- Output frequency
-TimeOfFirstSnapshot     0.02
+TimeOfFirstSnapshot     0.01
 TimeBetSnapshot         0.02
 TimeBetStatistics       0.01
 
@@ -26,7 +26,7 @@ ResubmitOn              0
 ResubmitCommand         none
 
 %---- Desired simulation beginning and end times (in code units) for run
-TimeBegin   0.02
+TimeBegin   0.01
 TimeMax     1.00
 
 %---- Maximum and minimum timesteps allowed
