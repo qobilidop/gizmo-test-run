@@ -1,6 +1,6 @@
 #!/bin/bash
 # usage: qsub job/tscc.sh
-#PBS -N toy-box
+#PBS -N box-dm
 #PBS -q condo
 #PBS -l nodes=2:ppn=16
 #PBS -l walltime=8:00:00
@@ -8,20 +8,20 @@
 #PBS -o gizmo.log
 #PBS -d .
 set -e
-spack env activate gizmo
 module list
+spack env activate gizmo
 set -x
+pwd
+date
 
 export MPIRUN="mpirun -npernode 16"
 if [[ -d output/restartfiles ]]; then
-    GIZMO_RUN_MODE=1
+    RESTART_FLAG=1
 else
-    GIZMO_RUN_MODE=
+    RESTART_FLAG=
 fi
-export GIZMO_RUN_MODE
+export RESTART_FLAG
 
-module list
-pwd
-date
 make run-gizmo
+
 date

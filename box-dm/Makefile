@@ -1,21 +1,20 @@
 GIZMO_HG_SRC ?= https://bitbucket.org/phopkins/gizmo-public
-MPIRUN ?= OMP_NUM_THREADS=1 mpirun
-GIZMO_RUN_MODE ?=
+MPIRUN ?= mpirun
+RESTART_FLAG ?=
 
-GIZMO_HG = gizmo_hg
+GIZMO_HG_DIR = gizmo_hg
 GIZMO_CONFIG = gizmo_config.sh
 GIZMO_PARAMS = gizmo_params.txt
-GIZMO_VERSION = gizmo@local
 
 .PHONY: compile
 compile: GIZMO
 
-GIZMO: $(GIZMO_CONFIG) $(GIZMO_HG)
-	cp $(GIZMO_CONFIG) $(GIZMO_HG)/Config.sh
-	spack diy -d $(GIZMO_HG) -n $(GIZMO_VERSION) && eval `spack env deactivate --sh` && spack uninstall -y $(GIZMO_VERSION)
-	ln -s $(GIZMO_HG)/GIZMO $@
+GIZMO: $(GIZMO_CONFIG) | $(GIZMO_HG_DIR)
+	cp $(GIZMO_CONFIG) $(GIZMO_HG_DIR)/Config.sh
+	spack diy -d $(GIZMO_HG_DIR) -n gizmo@local && eval `spack env deactivate --sh` && spack uninstall -y gizmo@local
+	ln -s $(GIZMO_HG_DIR)/GIZMO $@
 
-$(GIZMO_HG):
+$(GIZMO_HG_DIR):
 	hg clone $(GIZMO_HG_SRC) $@
 
 .PHONY: run-music
@@ -24,7 +23,7 @@ run-music:
 
 .PHONY: run-gizmo
 run-gizmo:
-	$(MPIRUN) ./GIZMO $(GIZMO_PARAMS) $(GIZMO_RUN_MODE)
+	$(MPIRUN) ./GIZMO $(GIZMO_PARAMS) $(RESTART_FLAG)
 
 .PHONY: purge
 purge:

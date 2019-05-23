@@ -1,7 +1,6 @@
 #!/bin/bash
 # usage: sbatch job/bridges.sh
-# https://www.psc.edu/bridges/user-guide/running-jobs#rm-summary
-#SBATCH -J toy-box
+#SBATCH -J box-dm
 #SBATCH -p RM-small
 #SBATCH -N 2
 #SBATCH --ntasks-per-node=28
@@ -9,21 +8,21 @@
 #SBATCH -o gizmo.log
 #SBATCH -D .
 set -e
-spack env activate gizmo
 module list
+spack env activate gizmo
 set -x
+pwd
+date
 
-# https://www.psc.edu/bridgwes/user-guide/sample-batch-scripts#mpi
 export I_MPI_JOB_RESPECT_PROCESS_PLACEMENT=0
 export MPIRUN="mpirun -n $SLURM_NTASKS -ppn $SLURM_NTASKS_PER_NODE"
 if [[ -d output/restartfiles ]]; then
-    GIZMO_RUN_MODE=1
+    RESTART_FLAG=1
 else
-    GIZMO_RUN_MODE=
+    RESTART_FLAG=
 fi
-export GIZMO_RUN_MODE
+export RESTART_FLAG
 
-pwd
-date
 make run-gizmo
+
 date

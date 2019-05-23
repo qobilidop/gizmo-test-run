@@ -6,3 +6,4 @@ output/
 *.dat
 *-usedvalues
 GIZMO
+gizmo.log
