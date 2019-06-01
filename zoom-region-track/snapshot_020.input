@@ -1,0 +1,19 @@
+[AHF]
+ic_filename = ../box-dm/output/snapshot_020.hdf5
+ic_filetype = 50
+outfile_prefix = snapshot_020
+LgridDomain = 64
+LgridMax = 1073741824
+NperDomCell = 5.0
+NperRefCell = 5.0
+VescTune = 1e10
+NminPerHalo = 100
+RhoVir = 0
+Dvir = -1
+MaxGatherRad = 1.0
+LevelDomainDecomp = 0
+NcpuReading = 1
+
+[GIZMO]
+GIZMO_LUNIT = 1e-3
+GIZMO_MUNIT = 1e10
